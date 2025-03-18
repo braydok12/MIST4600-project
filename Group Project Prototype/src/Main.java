@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Main {
 
 	public static void main(String[] args) {
@@ -7,6 +8,7 @@ public class Main {
 	
 		char menuOp;
 		StockAccount acct = new StockAccount(0);
+		ArrayList<Stock> stockMarket = new ArrayList<>();
 		
 		// Program menu 
 		do {
@@ -28,6 +30,22 @@ public class Main {
 		switch(menuOp) {
 		case 'A':
 			// Add new stock
+			
+			System.out.println("\nEnter stock ticker:");
+			String ticker = scnr.nextLine().toUpperCase();
+			
+			System.out.println("\nEnter stock name:");
+			String name = scnr.nextLine();
+			
+			System.out.println("\nEnter stock price:");
+			double price = scnr.nextDouble();
+			
+			System.out.println("\nEnter number of shares:");
+			int shares = scnr.nextInt();
+			scnr.nextLine(); 
+		
+            stockMarket.add(new Stock(ticker, name, price, shares));
+            System.out.println("Stock added successfully!");    
 			break;
 		case 'B':
 			//Buy or sell stocks
@@ -97,6 +115,18 @@ public class Main {
 			break;
 		case 'F':
 			// Market summary
+			if (stockMarket.isEmpty()) {
+				System.out.println("No stocks found...");
+			} else {
+				System.out.println("\nMarket Summary:");
+				System.out.println("");
+				System.out.printf("%-10s %-20s %-10s %-10s\n", "Ticker", "Name", "Price", "Shares");
+                System.out.println("-----------------------------------------------------");
+                for (Stock stock : stockMarket) {
+                    stock.displayStock();
+                }
+			}
+			
 			break;
 		case 'Q':
 			// Exit program
@@ -116,33 +146,9 @@ public class Main {
 
 }
 
-class StockAccount {
+
 	
-	// Private variables
-	private double balance;
-	
-	// Constructor
-	StockAccount(double balance) {
-		this.balance = balance;
-	}
-	
-	// Mutators
-	double deposit(double amount) {
-		balance += amount;
-		return balance;
-	}
-	
-	double withdraw(double amount) {
-		balance -= amount;
-		return balance;
-	}
-	
-	// Accessors
-	
-	double getBalance() {
-		return balance;
-	}
 	
 	
 
-}
+
