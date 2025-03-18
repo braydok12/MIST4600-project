@@ -1,0 +1,31 @@
+
+public class Stock {
+	
+	String ticker = "";
+	String name = "";
+	double price = 0.0;
+	double lastPrice = 0.0;
+	
+	// constructor
+	public Stock(String ticker, double price) {
+		this.ticker = ticker;
+		this.price = price;
+		lastPrice = price;
+	}
+	
+	public void update() {
+		double pct = ((int) (Math.random() * 1000)) / 100.0;
+		pct -= 5.0;
+		// 0% to 10% --> -5% to 5%
+		lastPrice = price;
+		price += price * pct / 100;
+	}
+	
+	public void print() {
+		System.out.print(ticker + ": $");
+		System.out.printf("%.2f", price);
+		System.out.print(" [");
+		System.out.printf("%.2f", ((price - lastPrice) / lastPrice * 100));
+		System.out.println("%]");
+	}
+}
