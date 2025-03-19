@@ -33,7 +33,7 @@ public class Main {
 		char menuOp;
 		
 		do {
-			
+			// main menu
 			System.out.println("\nSTOCK MENU:");
 			System.out.println("A - add new stock to market");
 			System.out.println("B - buy/sell stocks");
@@ -88,11 +88,13 @@ public class Main {
 					case 'A':
 						// sell stocks
 						System.out.println("\n" + ticker + " has " + stockDatabase.get(ticker).getShares() + " shares available.");
-						System.out.println("Enter the number of stocks to sell:");
+						System.out.println("Enter the number of shares to sell:");
 						shares = scnr.nextInt();
+						// loops while there are not enough shares to sell
+						// if the user puts a number of shares that is less than or equal to the amount available, the loop breaks
 						while(!(stockDatabase.get(ticker).sell(shares))) {
 							System.out.println("\nThere are only: " + stockDatabase.get(ticker).getShares() + " shares available to sell.");
-							System.out.println("\nEnter the number of stocks to sell:");
+							System.out.println("\nEnter the number of shares to sell:");
 							shares = scnr.nextInt();
 						}
 						System.out.println("Successfully sold " + shares + " shares!");
@@ -101,7 +103,7 @@ public class Main {
 					case 'B':
 						// buy stocks
 						System.out.println("\n" + ticker + " has " + stockDatabase.get(ticker).getShares() + " shares available.");
-						System.out.println("Enter the number of stocks to buy:");
+						System.out.println("Enter the number of shares to buy:");
 						shares = scnr.nextInt();
 						stockDatabase.get(ticker).buy(shares);
 						System.out.println("Successfully bought " + shares + " shares!");
@@ -175,21 +177,16 @@ public class Main {
 				break;
 			case 'E':
 				// Update stock market
+				for(Stock s : stockDatabase.values()) {
+					s.update();
+				}
+				for(Stock s : stockDatabase.values()) {
+					s.print();
+				}
 				break;
 			case 'F':
 				// Market summary
-				if (stockDatabase.isEmpty()) {
-					System.out.println("No stocks found...");
-				} else {
-					System.out.println("\nMarket Summary:");
-					System.out.println("");
-					System.out.printf("%-10s %-15s %-10s %-10s %-10s\n", "Ticker", "Name", "Price", "Change", "Shares");
-	                System.out.println("-----------------------------------------------------");
-	                for (Stock s : stockDatabase.values()) {
-	                    s.print();
-	                }
-				}
-				
+				Stock.marketSummary(stockDatabase);
 				break;
 			case 'Q':
 				// Exit program
