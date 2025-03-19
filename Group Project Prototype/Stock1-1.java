@@ -2,11 +2,13 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Stock {
+	Scanner scnr = new Scanner(System.in);
 	
 	private String ticker = "";
 	private String name = "";
 	private double price = 0.0;
 	private double lastPrice = 0.0;
+	private double buyPrice = 0.0;
 	private int shares;
 	
 	// constructor
@@ -16,11 +18,19 @@ public class Stock {
 		this.price = price;
 		lastPrice = price;
 		this.shares = 0;
-		
 	}
 	
+	public double getPrice() {
+		return (double)((int)(price * 100)) / 100.0;
+	}
+	public double getBPrice() {
+		return (double)((int)(buyPrice * 100)) / 100.0;
+	}
 	public int getShares() {
 		return shares;
+	}
+	public String getName() {
+		return name;
 	}
 	
 	public void update() {
@@ -31,10 +41,27 @@ public class Stock {
 		lastPrice = price;
 		price += price * pct / 100;
 	}
-	
-	public void buy(int shares) {
-		this.shares += shares;	
+	public void buy(HashMap<String, Stock> stockDatabase, StockAccount acct) {
+		price = (double)((int)(price * 100)) / 100.0;
+		int inputShares;
+		do {
+			System.out.println("\nYou have " + shares + " shares in " + ticker + ".");
+			System.out.println("The current price of " + ticker + " is $" + price);
+			System.out.println("You have $" + acct.getBalance() + " in your account.");
+			System.out.println("Enter the number of shares to buy:");
+			inputShares = scnr.nextInt();
+			scnr.nextLine();
+		}while((acct.getBalance() - inputShares*price) < 0);
+		shares += inputShares;
+		acct.withdraw(inputShares*price);
+		System.out.println("Successfully bought " + inputShares + " shares for $" + inputShares*price + "!");
+		acct.printAcct(stockDatabase);
 	}
+	
+	/*public void buy(int shares) {
+		this.shares += shares;	
+		buyPrice = price;
+	*/
 	public boolean sell(int shares) {
 		// if the amount of shares to sell are more than the current sales,
 		// return false so that another number of shares is input
