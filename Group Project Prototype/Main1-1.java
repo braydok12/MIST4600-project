@@ -10,7 +10,7 @@ public class Main {
 		HashMap<String, Stock> stockDatabase = new HashMap<String, Stock>();
 		
 		//adding default stocks
-		stockDatabase.put("APPL", new Stock("APPL", "Apple", 216.98));
+		stockDatabase.put("AAPL", new Stock("AAPL", "Apple", 216.98));
 		stockDatabase.put("MSFT", new Stock("MSFT", "Microsoft", 383.27));
 		stockDatabase.put("TSLA", new Stock("TSLA", "Tesla", 248.09));
 		stockDatabase.put("NVDA", new Stock("NVDA", "Nvidia", 115.74));
@@ -20,13 +20,13 @@ public class Main {
 			s.update();
 		}
 		// printing stocks
-		stockDatabase.get("APPL").print();
+		stockDatabase.get("AAPL").print();
 		stockDatabase.get("MSFT").print();
 		stockDatabase.get("TSLA").print();
 		stockDatabase.get("NVDA").print();
 		
 		// stock account
-		StockAccount acct = new StockAccount(0);
+		StockAccount acct = new StockAccount(1000);
 		
 		// MENU
 		Scanner scnr = new Scanner(System.in);
@@ -76,6 +76,7 @@ public class Main {
 					if(stockDatabase.containsKey(ticker)) {
 						break;
 					}
+					System.out.println("Invalid ticker. Try again");
 				}while(true);
 				do {
 					System.out.println("\nBUY/SELL MENU:");
@@ -87,7 +88,8 @@ public class Main {
 					switch(menuOp) {
 					case 'A':
 						// sell stocks
-						System.out.println("\n" + ticker + " has " + stockDatabase.get(ticker).getShares() + " shares available.");
+						System.out.print("\nYou have " + stockDatabase.get(ticker).getShares() + " shares in " + ticker + " to sell. ");
+						System.out.println("The current price of " + ticker + " is $" + stockDatabase.get(ticker).getPrice());
 						System.out.println("Enter the number of shares to sell:");
 						shares = scnr.nextInt();
 						// loops while there are not enough shares to sell
@@ -97,17 +99,14 @@ public class Main {
 							System.out.println("\nEnter the number of shares to sell:");
 							shares = scnr.nextInt();
 						}
-						System.out.println("Successfully sold " + shares + " shares!");
+						acct.deposit(shares*stockDatabase.get(ticker).getPrice());
+						System.out.println("Successfully sold " + shares + " shares for $" + shares*stockDatabase.get(ticker).getPrice() + "!");
+						acct.printAcct(stockDatabase);
 						scnr.nextLine();
 						break;
 					case 'B':
-						// buy stocks
-						System.out.println("\n" + ticker + " has " + stockDatabase.get(ticker).getShares() + " shares available.");
-						System.out.println("Enter the number of shares to buy:");
-						shares = scnr.nextInt();
-						stockDatabase.get(ticker).buy(shares);
-						System.out.println("Successfully bought " + shares + " shares!");
-						scnr.nextLine();
+						// buy stock
+						stockDatabase.get(ticker).buy(stockDatabase, acct);
 						break;
 					default:
 						System.out.println("\nReturning to main menu...");
