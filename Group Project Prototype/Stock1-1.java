@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Stock {
@@ -14,7 +15,7 @@ public class Stock {
 		this.name = name;
 		this.price = price;
 		lastPrice = price;
-		this.shares = 5;
+		this.shares = 0;
 		
 	}
 	
@@ -23,6 +24,7 @@ public class Stock {
 	}
 	
 	public void update() {
+		// NOT FINISHED
 		double pct = ((int) (Math.random() * 1000)) / 100.0;
 		pct -= 5.0;
 		// 0% to 10% --> -5% to 5%
@@ -41,6 +43,20 @@ public class Stock {
 			return true;
 		}else {
 			return false;
+		}
+	}
+	
+	public static void marketSummary(HashMap<String, Stock> market) {
+		if (market.isEmpty()) {
+			System.out.println("No stocks found...");
+		} else {
+			System.out.println("\nMarket Summary:");
+			System.out.println("");
+			System.out.printf("%-10s %-15s %-10s %-10s %-10s\n", "Ticker", "Name", "Price", "Change", "Shares");
+            System.out.println("-----------------------------------------------------");
+            for (Stock s : market.values()) {
+                s.print();
+            }
 		}
 	}
 	
