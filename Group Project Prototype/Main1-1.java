@@ -1,4 +1,4 @@
-import java.util.Scanner;
+mport java.util.Scanner;
 import java.util.HashMap;
 
 
@@ -69,7 +69,6 @@ public class Main {
 				break;
 			case 'B':
 				// buy or sell stocks
-
 				do {
 					System.out.println("\nEnter stock ticker:");
 					ticker = scnr.nextLine().toUpperCase();
@@ -87,22 +86,8 @@ public class Main {
 					
 					switch(menuOp) {
 					case 'A':
-						// sell stocks
-						System.out.print("\nYou have " + stockDatabase.get(ticker).getShares() + " shares in " + ticker + " to sell. ");
-						System.out.println("The current price of " + ticker + " is $" + stockDatabase.get(ticker).getPrice());
-						System.out.println("Enter the number of shares to sell:");
-						shares = scnr.nextInt();
-						// loops while there are not enough shares to sell
-						// if the user puts a number of shares that is less than or equal to the amount available, the loop breaks
-						while(!(stockDatabase.get(ticker).sell(shares))) {
-							System.out.println("\nThere are only: " + stockDatabase.get(ticker).getShares() + " shares available to sell.");
-							System.out.println("\nEnter the number of shares to sell:");
-							shares = scnr.nextInt();
-						}
-						acct.deposit(shares*stockDatabase.get(ticker).getPrice());
-						System.out.println("Successfully sold " + shares + " shares for $" + shares*stockDatabase.get(ticker).getPrice() + "!");
-						acct.printAcct(stockDatabase);
-						scnr.nextLine();
+						// sell stock
+						stockDatabase.get(ticker).sell(stockDatabase, acct);
 						break;
 					case 'B':
 						// buy stock
@@ -116,6 +101,7 @@ public class Main {
 				break;
 			case 'C':
 				// Check specific stock
+				
 				break;
 			case 'D':
 				// Deposit/withdraw money
@@ -131,39 +117,15 @@ public class Main {
 					switch(menuOp) {
 					case 'A':
 						// Deposit money
-						System.out.println("\nHow much money would you like to deposit?");
-						 double amount = scnr.nextDouble();
-						 scnr.nextLine();
-						 while (amount <= 0) {
-						        System.out.println("Invalid amount");
-						        amount = scnr.nextDouble();
-						        scnr.nextLine(); 
-						    }
-						 acct.deposit(amount);
-						 System.out.println("Deposited $" + amount);
-						 break;
+						System.out.println("Balance is: $" + acct.deposit());
+						break;
 					case 'B':
 						// Withdraw money
-						System.out.println("\nHow much money would you like to withdraw?");
-						amount = scnr.nextDouble();
-						 scnr.nextLine();
-						 while (amount <= 0) {
-						        System.out.println("Invalid amount");
-						        amount = scnr.nextDouble();
-						        scnr.nextLine();
-						    }
-						 
-						    if (amount  > acct.getBalance()) {
-						        System.out.println("Insufficient balance");
-						    } else {
-						        acct.withdraw(amount);
-						        System.out.println("Withdrew $" + amount);
-						    }
-						    
+						System.out.println("Balance is: $" + acct.withdraw());
 						break;
 					case 'C':
 						// Check balance
-						System.out.println("\nBalance is $" + acct.getBalance());
+						System.out.println("\nBalance is $" + acct.getBalance() + " in cash.");
 						break;
 					case 'R':
 						// Return to main menu
