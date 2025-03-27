@@ -1,7 +1,8 @@
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class StockAccount {
-		
+		Scanner scnr = new Scanner(System.in);
 		// Private variables
 		private double balance;
 		
@@ -15,13 +16,45 @@ public class StockAccount {
 		}
 		
 		// Mutators
+		public double deposit() {
+			System.out.println("\nHow much money would you like to deposit?");
+			double amount = scnr.nextDouble();
+			scnr.nextLine();
+			while (amount <= 0) {
+				System.out.println("Invalid amount");
+		        amount = scnr.nextDouble();
+		        scnr.nextLine(); 
+		    }
+			System.out.println("Deposited $" + amount);
+			return this.deposit(amount);
+		}
 		public double deposit(double amount) {
 			balance = (double)((int)(balance * 100)) / 100.0;
 			balance += amount;
 			return balance;
 		}
-		
+		public double withdraw() {
+			System.out.println("\nBalance is $" + balance);
+			System.out.println("How much money would you like to withdraw?");
+			double amount = scnr.nextDouble();
+			scnr.nextLine();
+			while (true) {
+				if (amount > balance) {
+			        System.out.println("Insufficient balance");
+			        System.out.println("Balance is $" + balance);
+			    } else if (amount <= 0) {
+			    	System.out.println("Invalid amount");
+			    } else {
+			    	break;
+			    }
+				amount = scnr.nextDouble();
+		        scnr.nextLine();
+			}
+			System.out.println("Withdrew $" + amount);
+		    return this.withdraw(amount);
+		}
 		public double withdraw(double amount) {
+			
 			balance = (double)((int)(balance * 100)) / 100.0;
 			balance -= amount;
 			return balance;
@@ -35,6 +68,7 @@ public class StockAccount {
 		}
 		
 		public void printAcct(HashMap<String, Stock> stockDatabase) {
+			balance = (double)((int)(balance * 100)) / 100.0;
 			System.out.println("You have $" + balance + " in cash in your account.");
 			double value = balance;
 			for(Stock s : stockDatabase.values()) {
