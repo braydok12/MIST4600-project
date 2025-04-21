@@ -44,12 +44,6 @@ public class FileStorage {
 		            	}
 	            	}
 	            	list[4] = line;
-	            	//System.out.println(list[4]);
-	            	/*
-	            	for(int i = 0; i < list.length; i++) {
-	            		System.out.println(list[i]);
-	            	}
-	            	*/
 	            	// price
 	            	double price = Double.parseDouble(list[2].substring(1));
 	            	// append this list to the ArrayList of Stock objects
@@ -71,7 +65,6 @@ public class FileStorage {
             }
             // Close method called
             reader.close();
-            //System.out.println("FileReader closed!");
         }
         catch (Exception e) {
             System.out.println(e);
@@ -86,10 +79,6 @@ public class FileStorage {
 			if (market.isEmpty()) {
 				data += "No stocks found...";
 			} else {
-				/*
-				data += String.format("%-10s %-15s %-10s %-10s %-10s\n", "Ticker", "Name", "Price", "Change", "Shares");
-	            data += "-----------------------------------------------------\n";
-	            */
 				data += String.format(acct.getBalance() + "\n");
 	            for (Stock s : market.values()) {
 	                data += s.printData();
