@@ -8,7 +8,6 @@ public class Stock {
 	protected String name = "";
 	protected double price = 0.0;
 	protected double lastPrice = 0.0;
-	protected double buyPrice = 0.0;
 	private int shares;
 	
 	// constructor
@@ -22,9 +21,6 @@ public class Stock {
 	
 	public double getPrice() {
 		return (double)((int)(price * 100)) / 100.0;
-	}
-	public double getBPrice() {
-		return (double)((int)(buyPrice * 100)) / 100.0;
 	}
 	public int getShares() {
 		return shares;
