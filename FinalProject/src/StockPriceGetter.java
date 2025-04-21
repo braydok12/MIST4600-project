@@ -4,57 +4,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class StockPriceGetter {
-    private static final String API_KEY = "cvdj6q9r01qm9khl9dc0cvdj6q9r01qm9khl9dcg";  // Replace with your API key (finnhub)
+    private static final String API_KEY = "cvdj6q9r01qm9khl9dc0cvdj6q9r01qm9khl9dcg";  // API key (finnhub)
     // cvdj6q9r01qm9khl9dc0cvdj6q9r01qm9khl9dcg <-- finnhub key
     // 5C86LTTU22ZP2IH9 <-- alpha vantage key
-    
-    /*
-    public static void main(String[] args) {
-        String symbol = "VMG";  // Change this for different stocks
-        String urlString = "https://finnhub.io/api/v1/quote?symbol=" + symbol + "&token=" + API_KEY;
-        
-        try {
-            URL url = new URL(urlString);
-            
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            
-            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String line;
-            StringBuilder response = new StringBuilder();
-
-            while ((line = reader.readLine()) != null) {
-                response.append(line);
-            }
-            reader.close();
-            
-            String data = response.toString();
-            //System.out.println(data);
-            System.out.println(symbol + ":");
-            
-            String pct = "";
-            int i = data.indexOf("dp") + 4;
-            // dp is % change
-            while(data.charAt(i) != ',') {
-            	pct += data.charAt(i);
-            	i++;
-            }
-            String price = "";
-            i = data.indexOf('c') + 3;
-            // c is closing price
-            while(data.charAt(i) != ',') {
-            	price += data.charAt(i);
-            	i++;
-            }
-            System.out.println("Price: " + price);
-            System.out.println("Percent Change: " + pct + "%");
-            System.out.println(getName(symbol));
-            
-        } catch (Exception e) {
-            System.out.println("Error fetching stock data: " + e.getMessage());
-        }
-    }
-    */
     
     public static double getPct(String symbol) {
 String urlString = "https://finnhub.io/api/v1/quote?symbol=" + symbol + "&token=" + API_KEY;
