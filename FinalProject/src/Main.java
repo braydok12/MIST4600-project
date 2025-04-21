@@ -9,29 +9,9 @@ public class Main {
 		
 		// stock account
 		StockAccount acct = new StockAccount(1000);
-		HashMap<String, Stock> stockDatabase = FileStorage.readData(acct);
-		
-		/*
-		HashMap<String, Stock> stockDatabase = new HashMap<String, Stock>();
-		
-		//adding default stocks
-		stockDatabase.put("AAPL", new Stock("AAPL", "Apple", 216.98));
-		stockDatabase.put("MSFT", new Stock("MSFT", "Microsoft", 383.27));
-		stockDatabase.put("TSLA", new Stock("TSLA", "Tesla", 248.09));
-		stockDatabase.put("NVDA", new Stock("NVDA", "Nvidia", 115.74));
-		
-		// updating stocks
-		for(Stock s : stockDatabase.values()) {
-			s.update();
-		}
-		*/
-		// printing stocks
-		
-		//stockDatabase.put("!BTC", new Crypto("!BTC", "Bitcoin", 839.24));
+		HashMap<String, Stock> stockDatabase = FileStorage.readData(acct);]
 
 		Stock.marketSummary(stockDatabase);
-		
-		
 		
 		// print account
 		acct.printAcct(stockDatabase);
@@ -59,7 +39,6 @@ public class Main {
 			case 'A':
 				// Add new stock
 				
-				// IMPLEMENT:
 				// if stock exists in the market, create a Stock object
 				// if stock does NOT exist in the market, create a Crypto object
 				
@@ -153,12 +132,10 @@ public class Main {
 					case 'A':
 						// Deposit money
 						System.out.println("Balance is: $" + acct.deposit());
-						//scnr.nextLine();
 						break;
 					case 'B':
 						// Withdraw money
 						System.out.println("Balance is: $" + acct.withdraw());
-						//scnr.nextLine();
 						break;
 					case 'C':
 						// Check balance
