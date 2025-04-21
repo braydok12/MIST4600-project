@@ -6,10 +6,6 @@ public class StockAccount {
 		// Private variables
 		private double balance;
 		
-		// create a HashMap that contains the number of shares and ticker
-		// allows for possibility of multiple accounts
-		// private HashMap<String, Integer> account = new HashMap<String, Integer>();
-		
 		// Constructor
 		public StockAccount(double balance) {
 			this.balance = balance;
