@@ -70,7 +70,11 @@ public class Main {
             	}
 				name = temp;
 			
-				stockDatabase.put(ticker, new Stock(ticker, name, price));
+				if(ticker.charAt(0) == '!') {
+					stockDatabase.put(ticker, new Crypto(ticker, name, price));
+				}else {
+					stockDatabase.put(ticker, new Stock(ticker, name, price));
+				}
 	            System.out.println("Stock added successfully!");    
 				break;
 			case 'B':
